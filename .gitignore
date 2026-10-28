@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+dist/
+_site/
+web-build/
+*.tsbuildinfo
+.DS_Store
+.env*.local
+.env
+ios/
+android/
+
+# Local tool settings
+.claude/

@@ -1,0 +1,17 @@
+{
+  "name": "blanche-beauty-demo",
+  "private": true,
+  "workspaces": [
+    "apps/app",
+    "packages/*"
+  ],
+  "scripts": {
+    "app": "npm --workspace blanche-app run start",
+    "ios": "npm --workspace blanche-app run ios",
+    "web": "npm --workspace blanche-app run web",
+    "admin": "npm --prefix apps/admin run dev",
+    "typecheck": "npm --workspace blanche-app run typecheck && npm --prefix apps/admin run typecheck",
+    "site": "node scripts/build-site.mjs",
+    "site:serve": "node scripts/serve-site.mjs"
+  }
+}
