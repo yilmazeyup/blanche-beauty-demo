@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Blanche Beauty · Hulp</title>
+    <link rel="icon" href="../favicon.ico" />
+    <style>
+      @font-face { font-family: 'Instrument Serif'; font-style: normal; font-display: swap; src: url('fonts/InstrumentSerif_400Regular.ttf'); }
+      @font-face { font-family: 'Instrument Serif'; font-style: italic; font-display: swap; src: url('fonts/InstrumentSerif_400Regular_Italic.ttf'); }
+      @font-face { font-family: 'Pinyon Script'; font-display: swap; src: url('fonts/PinyonScript_400Regular.ttf'); }
+      @font-face { font-family: 'Bricolage'; font-weight: 400; font-display: swap; src: url('fonts/BricolageGrotesque_400Regular.ttf'); }
+      @font-face { font-family: 'Bricolage'; font-weight: 600; font-display: swap; src: url('fonts/BricolageGrotesque_600SemiBold.ttf'); }
+
+      :root {
+        --ink: #141114;
+        --ink-soft: #3a333e;
+        --muted: #776f7e;
+        --line: #eeeaf2;
+        --line-strong: #dcd5e3;
+        --chalk: #f6f4f8;
+        --cherry: #d81e47;
+        --cherry-soft: #ffe3ea;
+        --lilac: #6f4fe8;
+        --honey: #b86e0f;
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body { margin: 0; background: #ffffff; color: var(--ink); font: 400 17px/1.55 'Bricolage', system-ui, sans-serif; }
+      a { color: inherit; }
+      em { font-style: italic; color: var(--cherry); }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 22px 24px 64px; }
+
+      header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+      .wordmark { display: inline-flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--ink); direction: ltr; }
+      .wordmark .script { font: 400 46px/1 'Pinyon Script', cursive; white-space: nowrap; }
+      .wordmark .beauty { font: 400 11px/1 'Instrument Serif', serif; letter-spacing: 0.42em; margin-right: -0.42em; margin-top: -2px; }
+      .head-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+      .back { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-strong);
+        text-decoration: none; font-weight: 600; font-size: 15px; }
+      .back:hover { background: var(--chalk); }
+      .lang { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 6px 0 14px; border-radius: 999px; background: var(--chalk); font-size: 14px; color: var(--muted); }
+      .lang select { border: 0; background: transparent; font: 600 15px 'Bricolage', sans-serif; color: var(--ink); padding: 8px 6px; cursor: pointer; }
+
+      .intro { padding: 48px 0 30px; }
+      .sticker { display: inline-block; padding: 9px 16px 8px; border-radius: 999px; background: var(--cherry); color: #fff; font: 600 14px/1 'Bricolage', sans-serif;
+        letter-spacing: 0.14em; text-transform: uppercase; transform: rotate(-3deg); box-shadow: 0 10px 22px -12px rgba(20, 17, 20, 0.5); }
+      h1 { margin: 22px 0 14px; font: 400 clamp(52px, 8vw, 96px)/0.98 'Instrument Serif', serif; letter-spacing: -0.012em; }
+      .lead { margin: 0; max-width: 680px; font-size: 19px; color: var(--ink-soft); }
+
+      .player { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 26px; align-items: start; }
+      .video { border-radius: 26px; overflow: hidden; background: var(--chalk); box-shadow: 0 40px 80px -46px rgba(20, 17, 20, 0.55), 0 0 0 1px var(--line); }
+      .video video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #fff; }
+      .chapters { border: 1px solid var(--line); border-radius: 22px; padding: 20px 14px 16px; }
+      .chapters h2 { margin: 0 8px 10px; font: 400 32px/1.1 'Instrument Serif', serif; }
+      .chapters ol { list-style: none; margin: 0; padding: 0; }
+      .chapters button { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px 8px; border: 0; border-radius: 14px; background: transparent;
+        font: 400 16px/1.3 'Bricolage', sans-serif; color: var(--ink); text-align: start; cursor: pointer; }
+      .chapters button:hover { background: var(--chalk); }
+      .chapters button[aria-current='true'] { background: var(--cherry-soft); }
+      .chapters time { flex: none; min-width: 48px; padding: 5px 0; border-radius: 999px; background: var(--chalk); font: 600 13px/1 'Bricolage', sans-serif;
+        text-align: center; font-variant-numeric: tabular-nums; direction: ltr; }
+      .chapters button[aria-current='true'] time { background: var(--cherry); color: #fff; }
+      .note { margin: 12px 8px 0; font-size: 14px; color: var(--muted); }
+
+      .faq { padding-top: 56px; }
+      .faq h2 { margin: 0 0 18px; font: 400 clamp(38px, 5vw, 54px)/1 'Instrument Serif', serif; }
+      .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+      details { border: 1px solid var(--line); border-radius: 20px; background: #fff; }
+      details[open] { border-color: var(--line-strong); background: var(--chalk); }
+      summary { list-style: none; cursor: pointer; padding: 18px 22px; font-weight: 600; display: flex; justify-content: space-between; gap: 14px; }
+      summary::-webkit-details-marker { display: none; }
+      summary::after { content: '+'; flex: none; color: var(--cherry); font-weight: 600; }
+      details[open] summary::after { content: '–'; }
+      details p { margin: 0; padding: 0 22px 20px; color: var(--ink-soft); }
+
+      .cta { display: flex; gap: 12px; flex-wrap: wrap; padding-top: 44px; }
+      .button { display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--cherry); color: #fff;
+        text-decoration: none; font-weight: 600; box-shadow: 0 14px 30px -16px rgba(216, 30, 71, 0.75); }
+      .button.ghost { background: #fff; color: var(--ink); border: 1px solid var(--line-strong); box-shadow: none; }
+      footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+
+      @media (max-width: 900px) {
+        .player { grid-template-columns: 1fr; }
+        .faq-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) {
+        .wrap { padding: 16px 16px 48px; }
+        .wordmark .script { font-size: 38px; }
+        .back { display: none; }
+        .intro { padding: 32px 0 22px; }
+        .lead { font-size: 17px; }
+        .video { border-radius: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <a href="../" id="home" class="wordmark" aria-label="Blanche Beauty"><span class="script" aria-hidden="true">Blanche</span><span class="beauty" aria-hidden="true">BEAUTY</span></a>
+        <div class="head-actions">
+          <a class="back" id="back" href="../" data-t="back"></a>
+          <label class="lang">
+            <span data-t="lang"></span>
+            <select id="lang">
+              <option value="nl">Nederlands</option>
+              <option value="en">English</option>
+              <option value="ar">العربية</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <section class="intro">
+        <span class="sticker" data-t="eyebrow"></span>
+        <h1 data-t="title"></h1>
+        <p class="lead" data-t="lead"></p>
+      </section>
+
+      <section class="player">
+        <div class="video">
+          <!-- The video is spoken in Dutch; subtitles follow the page language (Dutch, else English). -->
+          <video id="video" controls preload="metadata" playsinline poster="poster.jpg">
+            <source src="blanche-uitleg.mp4" type="video/mp4" />
+            <track kind="subtitles" srclang="nl" label="Nederlands" src="blanche-uitleg.nl.vtt" />
+            <track kind="subtitles" srclang="en" label="English" src="blanche-uitleg.en.vtt" />
+          </video>
+        </div>
+        <aside class="chapters">
+          <h2 data-t="chaptersTitle"></h2>
+          <ol id="chapters"></ol>
+          <p class="note" data-t="videoNote"></p>
+        </aside>
+      </section>
+
+      <section class="faq">
+        <h2 data-t="faqTitle"></h2>
+        <div class="faq-grid" id="faq"></div>
+      </section>
+
+      <div class="cta">
+        <a class="button" id="open" href="../app/" data-t="open"></a>
+        <a class="button ghost" id="admin" href="../admin/" data-t="admin"></a>
+      </div>
+      <footer data-t="footer"></footer>
+    </div>
+
+    <script>
+      const TEXT = {
+        nl: {
+          lang: 'Taal',
+          back: 'Terug naar de demo',
+          eyebrow: 'Hulp',
+          title: 'Zo werkt <em>Blanche</em>',
+          lead: 'Bekijk de korte video, of zoek je vraag hieronder op. Alles in de demo is fictief: er worden geen echte afspraken of betalingen gedaan.',
+          videoNote: 'Gesproken in het Nederlands, met ondertiteling in het Nederlands en Engels.',
+          chaptersTitle: 'Hoofdstukken',
+          chapters: {
+            welcome: 'Welkom',
+            app: 'De app',
+            booking: 'Boeken',
+            club: 'Club, shop en profiel',
+            studio: 'De studio in 3D',
+            live: 'Live: afrekenen, refills en omzet',
+            play: 'Speel de dag af',
+          },
+          faqTitle: 'Veelgestelde vragen',
+          faq: [
+            ['Hoe boek ik een afspraak?', 'Tik op Boek, kies je behandeling, een stylist (of laat het aan de studio over) en een dag en tijd. Je afspraak komt binnen als ticket met een code om in te checken. Je betaalt in de studio.'],
+            ['Wat kost een set?', 'BIAB Nude kost € 50, BIAB met gelkleur € 55 en een manicure € 25. Nail art komt erbij vanaf € 5. Een Korean lash lift kost € 60 (met verven € 65), brow lamination € 50 en brow shaping € 20.'],
+            ['Wanneer is het tijd voor een refill?', 'BIAB blijft drie à vier weken mooi. Na ongeveer drie weken stelt de app een nieuwe set voor, op je vaste tijd bij dezelfde stylist.'],
+            ['Wat is de kleurstudio?', 'Kies een van de 19 gelkleuren en je ziet hem meteen op een echte hand. In de studio kies je uit de echte kleurstalen.'],
+            ['Hoe werkt de Blanche Club?', 'Je spaart een punt per euro, en extra punten voor een post met @blanchebeauty.nl (+50), een review (+25), een vriendin die boekt (+100) en je verjaardag (+75). Vanaf 300 punten ben je Rosé, vanaf 900 Cerise. Je punten ruil je in voor nail art, wimpers verven of zelfs een gratis Korean lash lift.'],
+            ['Kan ik mijn afspraak verzetten of annuleren?', 'Ja, onder Profiel. Verzetten of annuleren is gratis tot 48 uur van tevoren.'],
+            ['Waar zit Blanche?', 'In Nijmegen, in het pand van Pure Clinics aan de Sint Annastraat 1. De Korean lash lift kun je ook in Uden laten doen, aan de Kastanjeweg 1.'],
+            ['Wat ziet het team in het beheer?', 'De studio in 3D: aan elke tafel de stylist van vandaag met haar klant, en wie er wacht. Klik op een stylist voor de klantkaart met eerdere sets, kleuren en notities. Verder de agenda per stylist, wie toe is aan een refill (één klik stuurt iedereen een herinnering), de omzet van de week, de shop en wat Instagram oplevert.'],
+            ['Is dit echt?', 'Nee, dit is een demo met fictieve klanten, stylisten en betalingen. Het menu, de prijzen, de openingstijden en de foto’s komen van Blanche Beauty; de Club, de deals en de shop zijn ideeën voor de demo.'],
+          ],
+          open: 'Open de app',
+          admin: 'Bekijk het beheer',
+          footer: 'Demo · niet voor echte boekingen',
+        },
+        en: {
+          lang: 'Language',
+          back: 'Back to the demo',
+          eyebrow: 'Help',
+          title: 'How <em>Blanche</em> works',
+          lead: 'Watch the short video, or find your question below. Everything in the demo is fictional: no real appointments or payments are made.',
+          videoNote: 'Spoken in Dutch, with Dutch and English subtitles.',
+          chaptersTitle: 'Chapters',
+          chapters: {
+            welcome: 'Welcome',
+            app: 'The app',
+            booking: 'Booking',
+            club: 'Club, shop and profile',
+            studio: 'The studio in 3D',
+            live: 'Live: payments, refills and revenue',
+            play: 'Play the day',
+          },
+          faqTitle: 'Frequently asked questions',
+          faq: [
+            ['How do I book an appointment?', 'Tap Book, choose a treatment, a stylist (or leave it to the studio) and a day and time. Your appointment arrives as a ticket with a code to check in. You pay at the studio.'],
+            ['What does a set cost?', 'BIAB Nude is € 50, BIAB with gel colour € 55 and a manicure € 25. Nail art is added from € 5. A Korean lash lift is € 60 (€ 65 with tint), brow lamination € 50 and brow shaping € 20.'],
+            ['When is it time for a refill?', 'BIAB stays beautiful for three to four weeks. After about three weeks the app suggests a new set, at your usual time with the same stylist.'],
+            ['What is the shade studio?', 'Pick one of the 19 gel colours and see it right away on a real hand. At the studio you choose from the real colour samples.'],
+            ['How does Blanche Club work?', 'You earn a point for every euro, plus extra points for a post tagging @blanchebeauty.nl (+50), a review (+25), a friend who books (+100) and your birthday (+75). From 300 points you are Rosé, from 900 Cerise. You trade your points for nail art, a lash tint or even a free Korean lash lift.'],
+            ['Can I reschedule or cancel?', 'Yes, under Profile. Rescheduling or cancelling is free up to 48 hours before.'],
+            ['Where is Blanche?', 'In Nijmegen, inside the Pure Clinics building at Sint Annastraat 1. The Korean lash lift is also available in Uden, at Kastanjeweg 1.'],
+            ['What does the team see in the admin panel?', 'The studio in 3D: at each table today’s stylist with her client, and who is waiting. Click a stylist for the client card with earlier sets, colours and notes. Also the diary per stylist, who is due a refill (one click sends everyone a reminder), the week’s revenue, the shop and what Instagram brings in.'],
+            ['Is this real?', 'No, this is a demo with fictional clients, stylists and payments. The menu, prices, opening hours and photos come from Blanche Beauty; the Club, the deals and the shop are ideas for the demo.'],
+          ],
+          open: 'Open the app',
+          admin: 'See the admin panel',
+          footer: 'Demo · not for real bookings',
+        },
+        ar: {
+          lang: 'اللغة',
+          back: 'العودة إلى العرض التجريبي',
+          eyebrow: 'مساعدة',
+          title: 'هكذا يعمل <em>Blanche</em>',
+          lead: 'شاهدي الفيديو القصير، أو ابحثي عن سؤالك في الأسفل. كل ما في هذا العرض التجريبي خيالي: لا تُحجز مواعيد حقيقية ولا تُدفع مبالغ حقيقية.',
+          videoNote: 'باللغة الهولندية، مع ترجمة باللغتين الهولندية والإنجليزية.',
+          chaptersTitle: 'الفصول',
+          chapters: {
+            welcome: 'مرحبًا',
+            app: 'التطبيق',
+            booking: 'الحجز',
+            club: 'النادي والمتجر وحسابي',
+            studio: 'الاستوديو بتقنية ثلاثية الأبعاد',
+            live: 'مباشر: الدفع والتجديد والإيرادات',
+            play: 'تشغيل اليوم',
+          },
+          faqTitle: 'الأسئلة الشائعة',
+          faq: [
+            ['كيف أحجز موعدًا؟', 'اضغطي على الحجز، واختاري العلاج والخبيرة (أو اتركي الاختيار للاستوديو)، ثم اليوم والوقت. يصلك الموعد على شكل تذكرة مع رمز لتسجيل الوصول. والدفع في الاستوديو.'],
+            ['كم يكلّف طقم الأظافر؟', 'يكلّف BIAB Nude ‏50 €، وBIAB مع لون جل 55 €، والمانيكير 25 €. ويُضاف فن الأظافر ابتداءً من 5 €. ويكلّف Korean lash lift ‏60 € (65 € مع الصبغ)، وbrow lamination ‏50 €، وbrow shaping ‏20 €.'],
+            ['متى يحين وقت التجديد؟', 'يبقى BIAB جميلًا من ثلاثة إلى أربعة أسابيع. وبعد نحو ثلاثة أسابيع يقترح التطبيق طقمًا جديدًا، في موعدك المعتاد ومع الخبيرة نفسها.'],
+            ['ما هو استوديو الألوان؟', 'اختاري أحد ألوان الجل التسعة عشر وشاهديه فورًا على يد حقيقية. وفي الاستوديو تختارين من عيّنات الألوان الحقيقية.'],
+            ['كيف يعمل Blanche Club؟', 'تجمعين نقطة عن كل يورو، ونقاطًا إضافية عن منشور تذكرين فيه @blanchebeauty.nl ‏(+50)، وتقييم (+25)، وصديقة تحجز (+100)، وعيد ميلادك (+75). من 300 نقطة تصبحين Rosé، ومن 900 نقطة Cerise. وتستبدلين نقاطك بفن الأظافر أو صبغ الرموش أو حتى Korean lash lift مجانًا.'],
+            ['هل يمكنني تغيير موعدي أو إلغاؤه؟', 'نعم، من حسابي. التغيير أو الإلغاء مجاني حتى 48 ساعة قبل الموعد.'],
+            ['أين يقع Blanche؟', 'في نايميخن، داخل مبنى Pure Clinics في Sint Annastraat 1. ويمكنك أيضًا عمل Korean lash lift في أودن، في Kastanjeweg 1.'],
+            ['ماذا يرى الفريق في لوحة الإدارة؟', 'الاستوديو بتقنية ثلاثية الأبعاد: عند كل طاولة خبيرة اليوم مع عميلتها، ومن تنتظر دورها. اضغطي على خبيرة لفتح بطاقة العميلة مع أطقمها السابقة وألوانها وملاحظاتها. وأيضًا الجدول لكل خبيرة، ومن حان وقت تجديدها (نقرة واحدة ترسل تذكيرًا للجميع)، وإيرادات الأسبوع، والمتجر، وما يجلبه إنستغرام.'],
+            ['هل هذا حقيقي؟', 'لا، هذا عرض تجريبي بعميلات وخبيرات ومدفوعات خيالية. أما القائمة والأسعار ومواعيد العمل والصور فهي من Blanche Beauty، والنادي والعروض والمتجر أفكار للعرض التجريبي.'],
+          ],
+          open: 'افتحي التطبيق',
+          admin: 'شاهدي لوحة الإدارة',
+          footer: 'عرض تجريبي · ليس للحجوزات الحقيقية',
+        },
+        fr: {
+          lang: 'Langue',
+          back: 'Retour à la démo',
+          eyebrow: 'Aide',
+          title: 'Comment fonctionne <em>Blanche</em>',
+          lead: 'Regardez la courte vidéo, ou trouvez votre question ci-dessous. Tout dans la démo est fictif : aucun vrai rendez-vous ni paiement n’est effectué.',
+          videoNote: 'En néerlandais, avec des sous-titres en néerlandais et en anglais.',
+          chaptersTitle: 'Chapitres',
+          chapters: {
+            welcome: 'Bienvenue',
+            app: 'L’app',
+            booking: 'Réserver',
+            club: 'Club, boutique et profil',
+            studio: 'Le studio en 3D',
+            live: 'En direct : paiements, remplissages et chiffre d’affaires',
+            play: 'Rejouer la journée',
+          },
+          faqTitle: 'Questions fréquentes',
+          faq: [
+            ['Comment prendre rendez-vous ?', 'Touchez Réserver, choisissez une prestation, une styliste (ou laissez le studio choisir), puis un jour et une heure. Votre rendez-vous arrive sous forme de ticket avec un code pour vous enregistrer. Vous payez au studio.'],
+            ['Combien coûte une pose ?', 'Le BIAB Nude coûte 50 €, le BIAB avec vernis gel 55 € et une manucure 25 €. Le nail art s’ajoute à partir de 5 €. Un Korean lash lift coûte 60 € (65 € avec teinture), le brow lamination 50 € et le brow shaping 20 €.'],
+            ['Quand faut-il un remplissage ?', 'Le BIAB reste beau trois à quatre semaines. Au bout d’environ trois semaines, l’app propose une nouvelle pose, à votre heure habituelle et avec la même styliste.'],
+            ['Qu’est-ce que le studio couleurs ?', 'Choisissez l’une des 19 couleurs de gel et voyez-la aussitôt sur une vraie main. Au studio, vous choisissez parmi les vrais nuanciers.'],
+            ['Comment fonctionne le Blanche Club ?', 'Vous gagnez un point par euro, plus des points bonus pour une publication avec @blanchebeauty.nl (+50), un avis (+25), une amie qui réserve (+100) et votre anniversaire (+75). Dès 300 points vous êtes Rosé, dès 900 Cerise. Vous échangez vos points contre du nail art, une teinture des cils ou même un Korean lash lift offert.'],
+            ['Puis-je déplacer ou annuler mon rendez-vous ?', 'Oui, dans Profil. Déplacer ou annuler est gratuit jusqu’à 48 heures avant.'],
+            ['Où se trouve Blanche ?', 'À Nimègue, dans les locaux de Pure Clinics, Sint Annastraat 1. Le Korean lash lift est aussi proposé à Uden, Kastanjeweg 1.'],
+            ['Que voit l’équipe dans l’espace de gestion ?', 'Le studio en 3D : à chaque table la styliste du jour avec sa cliente, et qui attend. Cliquez sur une styliste pour la fiche cliente avec ses poses précédentes, ses couleurs et ses notes. Ensuite l’agenda par styliste, les clientes qui ont besoin d’un remplissage (un clic envoie un rappel à toutes), le chiffre d’affaires de la semaine, la boutique et ce que rapporte Instagram.'],
+            ['Est-ce réel ?', 'Non, c’est une démo avec des clientes, des stylistes et des paiements fictifs. La carte, les prix, les horaires et les photos viennent de Blanche Beauty ; le Club, les offres et la boutique sont des idées pour la démo.'],
+          ],
+          open: 'Ouvrir l’app',
+          admin: 'Voir l’espace de gestion',
+          footer: 'Démo · pas pour de vraies réservations',
+        },
+        de: {
+          lang: 'Sprache',
+          back: 'Zurück zur Demo',
+          eyebrow: 'Hilfe',
+          title: 'So funktioniert <em>Blanche</em>',
+          lead: 'Sieh dir das kurze Video an oder finde deine Frage unten. Alles in der Demo ist fiktiv: Es werden keine echten Termine oder Zahlungen gemacht.',
+          videoNote: 'Auf Niederländisch gesprochen, mit niederländischen und englischen Untertiteln.',
+          chaptersTitle: 'Kapitel',
+          chapters: {
+            welcome: 'Willkommen',
+            app: 'Die App',
+            booking: 'Buchen',
+            club: 'Club, Shop und Profil',
+            studio: 'Das Studio in 3D',
+            live: 'Live: Zahlungen, Refills und Umsatz',
+            play: 'Den Tag abspielen',
+          },
+          faqTitle: 'Häufige Fragen',
+          faq: [
+            ['Wie buche ich einen Termin?', 'Tippe auf Buchen, wähle eine Behandlung, eine Stylistin (oder überlass es dem Studio) und einen Tag und eine Uhrzeit. Dein Termin kommt als Ticket mit einem Code zum Einchecken. Du bezahlst im Studio.'],
+            ['Was kostet ein Set?', 'BIAB Nude kostet 50 €, BIAB mit Gelfarbe 55 € und eine Maniküre 25 €. Nail Art kommt ab 5 € dazu. Ein Korean Lash Lift kostet 60 € (mit Färben 65 €), Brow Lamination 50 € und Brow Shaping 20 €.'],
+            ['Wann ist ein Refill fällig?', 'BIAB bleibt drei bis vier Wochen schön. Nach etwa drei Wochen schlägt die App ein neues Set vor, zu deiner üblichen Zeit bei derselben Stylistin.'],
+            ['Was ist das Farbstudio?', 'Wähle eine der 19 Gelfarben und sieh sie sofort an einer echten Hand. Im Studio wählst du aus den echten Farbmustern.'],
+            ['Wie funktioniert der Blanche Club?', 'Du sammelst einen Punkt pro Euro und Extrapunkte für einen Post mit @blanchebeauty.nl (+50), eine Bewertung (+25), eine Freundin, die bucht (+100), und deinen Geburtstag (+75). Ab 300 Punkten bist du Rosé, ab 900 Cerise. Deine Punkte tauschst du gegen Nail Art, Wimpernfärben oder sogar einen kostenlosen Korean Lash Lift.'],
+            ['Kann ich meinen Termin verschieben oder absagen?', 'Ja, unter Profil. Verschieben oder Absagen ist bis 48 Stunden vorher kostenlos.'],
+            ['Wo ist Blanche?', 'In Nijmegen, im Gebäude von Pure Clinics in der Sint Annastraat 1. Den Korean Lash Lift gibt es auch in Uden, Kastanjeweg 1.'],
+            ['Was sieht das Team in der Verwaltung?', 'Das Studio in 3D: an jedem Tisch die Stylistin des Tages mit ihrer Kundin, und wer wartet. Klicke auf eine Stylistin für die Kundenkarte mit früheren Sets, Farben und Notizen. Dazu der Kalender pro Stylistin, wer ein Refill braucht (ein Klick schickt allen eine Erinnerung), der Umsatz der Woche, der Shop und was Instagram bringt.'],
+            ['Ist das echt?', 'Nein, das ist eine Demo mit fiktiven Kundinnen, Stylistinnen und Zahlungen. Menü, Preise, Öffnungszeiten und Fotos stammen von Blanche Beauty; Club, Angebote und Shop sind Ideen für die Demo.'],
+          ],
+          open: 'App öffnen',
+          admin: 'Verwaltung ansehen',
+          footer: 'Demo · nicht für echte Buchungen',
+        },
+        it: {
+          lang: 'Lingua',
+          back: 'Torna alla demo',
+          eyebrow: 'Aiuto',
+          title: 'Come funziona <em>Blanche</em>',
+          lead: 'Guarda il breve video o trova qui sotto la tua domanda. Tutto nella demo è fittizio: non vengono fatti appuntamenti o pagamenti reali.',
+          videoNote: 'In olandese, con sottotitoli in olandese e in inglese.',
+          chaptersTitle: 'Capitoli',
+          chapters: {
+            welcome: 'Benvenuti',
+            app: 'L’app',
+            booking: 'Prenotare',
+            club: 'Club, shop e profilo',
+            studio: 'Lo studio in 3D',
+            live: 'Dal vivo: pagamenti, refill e fatturato',
+            play: 'Riproduci la giornata',
+          },
+          faqTitle: 'Domande frequenti',
+          faq: [
+            ['Come prenoto un appuntamento?', 'Tocca Prenota, scegli un trattamento, una stylist (o lascia scegliere allo studio) e un giorno e un orario. L’appuntamento arriva come biglietto con un codice per il check-in. Paghi in studio.'],
+            ['Quanto costa un set?', 'Il BIAB Nude costa 50 €, il BIAB con colore gel 55 € e una manicure 25 €. La nail art si aggiunge da 5 €. Un Korean lash lift costa 60 € (65 € con tinta), la brow lamination 50 € e il brow shaping 20 €.'],
+            ['Quando è il momento di un refill?', 'Il BIAB resta bello da tre a quattro settimane. Dopo circa tre settimane l’app propone un nuovo set, al tuo solito orario con la stessa stylist.'],
+            ['Cos’è lo studio colori?', 'Scegli uno dei 19 colori gel e lo vedi subito su una mano vera. In studio scegli tra i campioni di colore veri.'],
+            ['Come funziona il Blanche Club?', 'Accumuli un punto per ogni euro, più punti extra per un post con @blanchebeauty.nl (+50), una recensione (+25), un’amica che prenota (+100) e il tuo compleanno (+75). Da 300 punti sei Rosé, da 900 Cerise. Scambi i punti con nail art, la tinta ciglia o perfino un Korean lash lift gratis.'],
+            ['Posso spostare o annullare l’appuntamento?', 'Sì, in Profilo. Spostare o annullare è gratuito fino a 48 ore prima.'],
+            ['Dove si trova Blanche?', 'A Nimega, nella sede di Pure Clinics in Sint Annastraat 1. Il Korean lash lift si può fare anche a Uden, in Kastanjeweg 1.'],
+            ['Cosa vede il team nella gestione?', 'Lo studio in 3D: a ogni postazione la stylist del giorno con la sua cliente, e chi è in attesa. Clicca su una stylist per la scheda cliente con i set precedenti, i colori e le note. Poi l’agenda per stylist, chi deve fare un refill (un clic manda un promemoria a tutte), il fatturato della settimana, lo shop e ciò che porta Instagram.'],
+            ['È reale?', 'No, è una demo con clienti, stylist e pagamenti fittizi. Il menu, i prezzi, gli orari e le foto vengono da Blanche Beauty; il Club, le offerte e lo shop sono idee per la demo.'],
+          ],
+          open: 'Apri l’app',
+          admin: 'Vedi la gestione',
+          footer: 'Demo · non per prenotazioni reali',
+        },
+      };
+
+      const select = document.getElementById('lang');
+      const video = document.getElementById('video');
+      let chapters = [];
+      let lang = 'nl';
+
+      function stored() {
+        try {
+          return localStorage.getItem('blanche-help-lang');
+        } catch {
+          return null;
+        }
+      }
+
+      const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+      /** Dutch viewers get Dutch subtitles; everyone else the English ones. */
+      function subtitles() {
+        const want = lang === 'nl' ? 'nl' : 'en';
+        for (const track of video.textTracks) track.mode = track.language === want ? 'showing' : 'hidden';
+      }
+
+      function renderChapters() {
+        const t = TEXT[lang];
+        const list = document.getElementById('chapters');
+        list.innerHTML = '';
+        for (const chapter of chapters) {
+          const li = document.createElement('li');
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.dataset.start = chapter.start;
+          button.innerHTML = `<time>${clock(chapter.start)}</time><span></span>`;
+          button.querySelector('span').textContent = t.chapters[chapter.id];
+          button.addEventListener('click', () => {
+            video.currentTime = chapter.start + 0.05;
+            video.play();
+          });
+          li.appendChild(button);
+          list.appendChild(li);
+        }
+        markChapter();
+      }
+
+      function markChapter() {
+        const buttons = [...document.querySelectorAll('#chapters button')];
+        const now = video.currentTime;
+        let current = 0;
+        buttons.forEach((b, i) => {
+          if (Number(b.dataset.start) <= now + 0.1) current = i;
+        });
+        buttons.forEach((b, i) => b.setAttribute('aria-current', String(i === current && now > 0)));
+      }
+
+      function renderFaq() {
+        const box = document.getElementById('faq');
+        box.innerHTML = '';
+        for (const [q, a] of TEXT[lang].faq) {
+          const item = document.createElement('details');
+          const summary = document.createElement('summary');
+          summary.textContent = q;
+          const p = document.createElement('p');
+          p.textContent = a;
+          item.append(summary, p);
+          box.appendChild(item);
+        }
+      }
+
+      function apply(next) {
+        lang = TEXT[next] ? next : 'nl';
+        const t = TEXT[lang];
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.title = `Blanche Beauty · ${t.eyebrow}`;
+        document.querySelectorAll('[data-t]').forEach((el) => {
+          el.innerHTML = t[el.dataset.t];
+        });
+        select.value = lang;
+        select.setAttribute('aria-label', t.lang);
+        // Back to the start page, and into the app and the admin panel, in the same language.
+        for (const id of ['home', 'back']) document.getElementById(id).href = `../?lang=${lang}`;
+        document.getElementById('open').href = `../app/?lang=${lang}`;
+        document.getElementById('admin').href = `../admin/?lang=${lang}`;
+        renderChapters();
+        renderFaq();
+        subtitles();
+        try {
+          localStorage.setItem('blanche-help-lang', lang);
+        } catch {
+          // Private windows may refuse storage; the page still works.
+        }
+      }
+
+      video.addEventListener('loadedmetadata', subtitles);
+      video.addEventListener('timeupdate', markChapter);
+      select.addEventListener('change', () => apply(select.value));
+      fetch('chapters.json')
+        .then((r) => r.json())
+        .then((list) => {
+          chapters = list;
+          renderChapters();
+        })
+        .catch(() => {});
+      const fromLink = new URLSearchParams(location.search).get('lang');
+      apply(TEXT[fromLink] ? fromLink : TEXT[stored()] ? stored() : 'nl');
+    </script>
+  </body>
+</html>

@@ -7,6 +7,8 @@ lifts also in Uden). This is a demo with test data only: fictional stylists and 
   side, in Dutch, English, Arabic, French, German and Italian)
 - Member app: https://yilmazeyup.github.io/blanche-beauty-demo/app/
 - Admin panel: https://yilmazeyup.github.io/blanche-beauty-demo/admin/ (`?at=2026-10-28T14:20` sets the demo clock)
+- Help page with a Dutch explainer video (subtitles in Dutch and English) and common questions in six languages:
+  https://yilmazeyup.github.io/blanche-beauty-demo/hulp/
 
 ## What's in it
 
