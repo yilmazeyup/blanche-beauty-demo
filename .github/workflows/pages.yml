@@ -1,7 +1,9 @@
 # Builds the demo site on every push to main and publishes it on GitHub Pages:
-#   /         the member app, exported for the web (also as 404.html, so a link straight to a screen opens it)
+#   /         start page that explains the demo (site/index.html)
+#   /app/     the member app, exported for the web (also as 404.html, so a link straight to a screen opens it)
 #   /admin/   the studio's admin panel
-# Anything in site/ (such as a help page in site/hulp/) is copied over as is. See scripts/build-site.mjs.
+#   /hulp/    the help page with the explainer video (site/hulp/)
+# See scripts/build-site.mjs.
 name: Demo site
 
 on:

@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- A demo with fictional data: keep it out of search results. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <title>Blanche Beauty · demo</title>
+    <link rel="icon" href="app/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Instrument+Serif:ital@0;1&family=Pinyon+Script&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Amiri:wght@400;700&display=swap"
+    />
+    <style>
+      /* Blanche Beauty's colours: white, the logo's black, and one colour per craft (cherry nails, lilac lashes,
+         honey brows), with the app's sticker edges. */
+      :root {
+        --paper: #ffffff;
+        --chalk: #f6f4f8;
+        --ink: #141114;
+        --ink-soft: #3a333e;
+        --muted: #776f7e;
+        --cherry: #d81e47;
+        --cherry-soft: #ffe3ea;
+        --lilac: #6f4fe8;
+        --lilac-soft: #ece6ff;
+        --honey: #b86e0f;
+        --honey-soft: #fff0c9;
+        --mint: #14876a;
+        --mint-soft: #ddf4ea;
+        --serif: 'Instrument Serif', 'Times New Roman', serif;
+        --script: 'Pinyon Script', cursive;
+        --body: 'Bricolage Grotesque', system-ui, sans-serif;
+        --sticker: 2px 3px 0 var(--ink);
+        --spring: cubic-bezier(0.2, 0.9, 0.25, 1.15);
+      }
+      :root[lang='ar'] {
+        --body: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+        --serif: 'Amiri', serif;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font: 400 17px/1.55 var(--body);
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 22px max(20px, env(safe-area-inset-right, 0px)) 56px max(20px, env(safe-area-inset-left, 0px));
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      /* The logo in type: the script name over BEAUTY in a narrow serif. */
+      .brand {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        direction: ltr;
+        line-height: 1;
+      }
+      .brand .script {
+        font: 400 44px/0.95 var(--script);
+        padding: 0 6px;
+      }
+      .brand .beauty {
+        font: 400 13px/1 'Instrument Serif', serif;
+        letter-spacing: 4px;
+        margin-inline-start: 4px;
+      }
+      .lang {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: var(--chalk);
+      }
+      .lang select {
+        border: 0;
+        background: transparent;
+        font: 600 15px var(--body);
+        color: var(--ink);
+        cursor: pointer;
+      }
+      .hero {
+        margin-top: 40px;
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        gap: 40px;
+        align-items: center;
+      }
+      .tag {
+        display: inline-flex;
+        margin: 0;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--honey-soft);
+        color: var(--honey);
+        font: 700 12px/1.2 var(--body);
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+      h1 {
+        margin: 16px 0 0;
+        font: 400 clamp(54px, 8vw, 96px) / 0.95 var(--serif);
+        letter-spacing: -0.02em;
+        text-wrap: balance;
+      }
+      h1 em {
+        color: var(--cherry);
+      }
+      .lead {
+        max-width: 600px;
+        margin: 20px 0 0;
+        font-size: 19px;
+        color: var(--ink-soft);
+      }
+      /* The way to the explainer video; it shows once that page is published. */
+      .help-link {
+        margin-top: 26px;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 10px 20px 10px 10px;
+        border-radius: 22px;
+        border: 2px solid var(--ink);
+        box-shadow: var(--sticker);
+        background: var(--paper);
+        text-decoration: none;
+        transition: transform 0.25s var(--spring);
+      }
+      .help-link[hidden] {
+        display: none;
+      }
+      .help-link:hover {
+        transform: translateY(-1px) rotate(-1deg);
+      }
+      .help-link .play {
+        flex: none;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: var(--cherry);
+        display: grid;
+        place-items: center;
+      }
+      .help-link .play::after {
+        content: '';
+        margin-inline-start: 3px;
+        border-style: solid;
+        border-width: 8px 0 8px 13px;
+        border-color: transparent transparent transparent #fff;
+      }
+      [dir='rtl'] .help-link .play::after {
+        transform: scaleX(-1);
+      }
+      .help-link strong {
+        display: block;
+        font-weight: 700;
+      }
+      .help-link span span {
+        font-size: 14.5px;
+        color: var(--muted);
+      }
+      /* Three photos of Blanche's own work, one per craft, laid down like stickers. */
+      .shots {
+        position: relative;
+        height: 540px;
+        direction: ltr;
+      }
+      .shot {
+        position: absolute;
+        margin: 0;
+        width: 58%;
+        aspect-ratio: 4 / 5;
+        border-radius: 26px;
+        overflow: hidden;
+        border: 2px solid var(--ink);
+        box-shadow: 4px 5px 0 var(--ink);
+        background: var(--chalk);
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .shot figcaption {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 2px solid var(--ink);
+        box-shadow: var(--sticker);
+        font: 700 12px/1.2 'Bricolage Grotesque', sans-serif;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .shot-nails {
+        top: 0;
+        left: 0;
+        width: 56%;
+        transform: rotate(-5deg);
+      }
+      .shot-nails figcaption {
+        background: var(--cherry-soft);
+      }
+      .shot-lashes {
+        top: 40px;
+        right: 0;
+        width: 54%;
+        transform: rotate(4deg);
+      }
+      .shot-lashes figcaption {
+        background: var(--lilac-soft);
+      }
+      /* The brows photo lies on top of the other two, so their labels sit at the top. */
+      .shot-nails figcaption,
+      .shot-lashes figcaption {
+        top: 12px;
+        bottom: auto;
+      }
+      .shot-brows {
+        bottom: 0;
+        left: 18%;
+        width: 52%;
+        transform: rotate(-2deg);
+      }
+      .shot-brows figcaption {
+        background: var(--honey-soft);
+      }
+      .parts {
+        margin-top: 48px;
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: 22px;
+      }
+      .part {
+        border-radius: 30px;
+        padding: 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-width: 0;
+      }
+      .part-app {
+        background: var(--cherry-soft);
+      }
+      .part-admin {
+        background: var(--lilac-soft);
+      }
+      .step {
+        font: 400 56px/0.9 var(--serif);
+      }
+      .part-app .step {
+        color: var(--cherry);
+      }
+      .part-admin .step {
+        color: var(--lilac);
+      }
+      h2 {
+        margin: 0;
+        font: 400 40px/1.05 var(--serif);
+      }
+      .part p {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+      .try {
+        padding: 12px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.72);
+        color: var(--ink) !important;
+        font-size: 15.5px;
+      }
+      .button {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        height: 52px;
+        padding: 0 24px;
+        border-radius: 999px;
+        background: var(--cherry);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        box-shadow: 0 8px 20px rgba(216, 30, 71, 0.3);
+        transition: transform 0.25s var(--spring);
+      }
+      .part-admin .button {
+        background: var(--ink);
+        box-shadow: 0 8px 20px rgba(20, 17, 20, 0.25);
+      }
+      .button:hover {
+        transform: translateY(-1px) scale(1.02);
+      }
+      .button:active {
+        transform: scale(0.96);
+      }
+      .button svg {
+        width: 18px;
+        height: 18px;
+      }
+      [dir='rtl'] .button svg {
+        transform: scaleX(-1);
+      }
+      .button:focus-visible,
+      .help-link:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .preview {
+        margin-top: 6px;
+        display: flex;
+        justify-content: center;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.55);
+        padding: 22px 12px;
+        overflow: hidden;
+      }
+      /* The member app runs live inside a phone outline (390 x 844, scaled down). */
+      .phone {
+        width: calc(390px * 0.72 + 20px);
+        height: calc(844px * 0.72 + 20px);
+        padding: 10px;
+        border-radius: 44px;
+        background: var(--ink);
+        flex: none;
+      }
+      .phone .screen {
+        width: calc(390px * 0.72);
+        height: calc(844px * 0.72);
+        border-radius: 34px;
+        overflow: hidden;
+        background: var(--paper);
+        direction: ltr;
+      }
+      .phone iframe {
+        width: 390px;
+        height: 844px;
+        border: 0;
+        transform: scale(0.72);
+        transform-origin: top left;
+      }
+      /* The admin screen as a live, scaled-down window (1440 x 900). */
+      .window {
+        display: block;
+        width: 100%;
+        max-width: 680px;
+        border-radius: 18px;
+        background: var(--paper);
+        border: 2px solid var(--ink);
+        box-shadow: 4px 5px 0 var(--ink);
+        overflow: hidden;
+        text-decoration: none;
+      }
+      .window .bar {
+        height: 28px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 12px;
+        background: var(--chalk);
+        border-bottom: 2px solid var(--ink);
+        direction: ltr;
+      }
+      .window .bar i {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        background: var(--cherry);
+      }
+      .window .bar i + i {
+        background: var(--honey);
+      }
+      .window .bar i + i + i {
+        background: var(--lilac);
+      }
+      .window .view {
+        display: block;
+        position: relative;
+        aspect-ratio: 1440 / 900;
+        overflow: hidden;
+      }
+      .window iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1440px;
+        height: 900px;
+        border: 0;
+        transform-origin: top left;
+        pointer-events: none;
+      }
+      .facts {
+        margin-top: 22px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px;
+      }
+      .fact {
+        padding: 22px 26px;
+        border-radius: 26px;
+      }
+      .fact-real {
+        background: var(--mint-soft);
+      }
+      .fact-fake {
+        background: var(--honey-soft);
+      }
+      .fact strong {
+        display: block;
+        font: 400 30px/1.1 var(--serif);
+        margin-bottom: 6px;
+      }
+      .fact-real strong {
+        color: var(--mint);
+      }
+      .fact-fake strong {
+        color: var(--honey);
+      }
+      .fact p {
+        margin: 0;
+        color: var(--ink-soft);
+      }
+      footer {
+        margin-top: 40px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      @media (max-width: 920px) {
+        .hero,
+        .parts,
+        .facts {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .hero {
+          margin-top: 28px;
+          gap: 30px;
+        }
+        /* The photos become a row under the text. */
+        .shots {
+          height: auto;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 14px;
+          padding: 0 4px 6px;
+        }
+        .shot,
+        .shot-nails,
+        .shot-lashes,
+        .shot-brows {
+          position: relative;
+          inset: auto;
+          width: auto;
+        }
+        .shot-lashes {
+          transform: rotate(3deg) translateY(10px);
+        }
+      }
+      @media (max-width: 520px) {
+        .shot figcaption {
+          display: none;
+        }
+        .part {
+          padding: 22px;
+        }
+        h2 {
+          font-size: 34px;
+        }
+        /* On a phone the app opens full screen instead of inside a drawn phone. */
+        .preview.app-preview {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .button,
+        .help-link {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <span class="brand" role="img" aria-label="Blanche Beauty"><span class="script">Blanche</span><span class="beauty">BEAUTY</span></span>
+        <label class="lang">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" />
+          </svg>
+          <select id="lang" aria-label="Taal">
+            <option value="nl">Nederlands</option>
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="hero">
+        <div>
+          <p class="tag" data-t="tag"></p>
+          <h1 data-t="title"></h1>
+          <p class="lead" data-t="lead"></p>
+          <a class="help-link" id="open-help" href="hulp/" hidden>
+            <span class="play" aria-hidden="true"></span>
+            <span><strong data-t="helpTitle"></strong><span data-t="helpBody"></span></span>
+          </a>
+        </div>
+        <div class="shots" aria-hidden="true">
+          <figure class="shot shot-nails"><img src="photos/nails-red.jpg" alt="" /><figcaption>True Red</figcaption></figure>
+          <figure class="shot shot-lashes"><img src="photos/lashes-lift.jpg" alt="" /><figcaption>Korean lash lift</figcaption></figure>
+          <figure class="shot shot-brows"><img src="photos/brows-map.jpg" alt="" /><figcaption>Brow lamination</figcaption></figure>
+        </div>
+      </section>
+
+      <div class="parts">
+        <section class="part part-app">
+          <span class="step" aria-hidden="true">01</span>
+          <h2 data-t="appTitle"></h2>
+          <p data-t="appBody"></p>
+          <p class="try" data-t="appTry"></p>
+          <a class="button" id="open-app" href="app/" target="_blank" rel="noopener">
+            <span data-t="appOpen"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+          <div class="preview app-preview">
+            <div class="phone">
+              <div class="screen">
+                <iframe id="app-frame" title="Blanche Beauty app"></iframe>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="part part-admin">
+          <span class="step" aria-hidden="true">02</span>
+          <h2 data-t="adminTitle"></h2>
+          <p data-t="adminBody"></p>
+          <p class="try" data-t="adminTry"></p>
+          <a class="button" id="open-admin" href="admin/" target="_blank" rel="noopener">
+            <span data-t="adminOpen"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </a>
+          <div class="preview">
+            <a class="window" id="admin-window" href="admin/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+              <span class="bar"><i></i><i></i><i></i></span>
+              <span class="view"><iframe id="admin-frame" title="" tabindex="-1"></iframe></span>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <div class="facts">
+        <div class="fact fact-real">
+          <strong data-t="realTitle"></strong>
+          <p data-t="real"></p>
+        </div>
+        <div class="fact fact-fake">
+          <strong data-t="fakeTitle"></strong>
+          <p data-t="fake"></p>
+        </div>
+      </div>
+
+      <footer data-t="footer"></footer>
+    </div>
+
+    <script>
+      const TEXT = {
+        nl: {
+          lang: 'Taal',
+          tag: 'Demo · testgegevens',
+          title: 'Blanche Beauty · <em>demo</em>',
+          lead: 'Dit is een voorbeeld van een eigen app voor Blanche Beauty en een beheerscherm voor de studio. Namen, afspraken en betalingen zijn nep. Klik gerust rond, je kunt niets kapotmaken.',
+          helpTitle: 'Bekijk de uitlegvideo',
+          helpBody: 'Alles over de app en het beheerscherm',
+          appTitle: 'De app voor klanten',
+          appBody: 'Zo ziet de app eruit op een telefoon. Klanten boeken hier hun nagels, wimpers of brows bij hun eigen stylist, sparen punten in de Blanche Club en bestellen hun nazorg.',
+          appTry: 'Probeer dit: tik op Open de kleurstudio en zie een gelkleur meteen op een echte hand. Of tik op Boek en kies een stylist en een tijd.',
+          appOpen: 'Open de app',
+          adminTitle: 'Het beheerscherm voor de studio',
+          adminBody: 'Hier ziet de studio wat er vandaag gebeurt: wie er in de stoel zit, de agenda per stylist, wie toe is aan een nieuwe set, de omzet en de webshop.',
+          adminTry: 'Probeer dit: druk op Speel de dag af. Dan zie je een hele dag in de studio in 45 seconden.',
+          adminOpen: 'Open het beheerscherm',
+          realTitle: 'Wat is echt?',
+          real: 'De behandelingen, prijzen, adressen en openingstijden in Nijmegen komen van Blanche Beauty, net als de foto’s van hun eigen werk.',
+          fakeTitle: 'Wat is nep?',
+          fake: 'De stylists, klanten en afspraken, de Blanche Club, deals, webshopproducten, omzet en betalingen, en de lash lift-dag in Uden. Er wordt niets echt geboekt of betaald.',
+          footer: 'Demo · niet bedoeld voor echte boekingen',
+        },
+        en: {
+          lang: 'Language',
+          tag: 'Demo · test data',
+          title: 'Blanche Beauty · <em>demo</em>',
+          lead: "This is a preview of an app of Blanche Beauty's own and an admin screen for the studio. Names, appointments and payments are fake. Click around freely, you can't break anything.",
+          helpTitle: 'Watch the explainer video',
+          helpBody: 'All about the app and the admin screen',
+          appTitle: 'The app for clients',
+          appBody: 'This is how the app looks on a phone. Clients book their nails, lashes or brows with their own stylist here, collect points in the Blanche Club and order their aftercare.',
+          appTry: 'Try this: tap Open the colour studio and see a gel colour on a real hand straight away. Or tap Book and pick a stylist and a time.',
+          appOpen: 'Open the app',
+          adminTitle: 'The admin screen for the studio',
+          adminBody: 'Here the studio sees what is happening today: who is in the chair, the agenda per stylist, who is due for a new set, the revenue and the webshop.',
+          adminTry: "Try this: press Play the day. You'll see a whole day in the studio in 45 seconds.",
+          adminOpen: 'Open the admin screen',
+          realTitle: 'What is real?',
+          real: 'The treatments, prices, addresses and opening hours in Nijmegen come from Blanche Beauty, and so do the photos of their own work.',
+          fakeTitle: 'What is fake?',
+          fake: 'The stylists, clients and appointments, the Blanche Club, deals, shop products, revenue and payments, and the lash lift day in Uden. Nothing is really booked or paid.',
+          footer: 'Demo · not for real bookings',
+        },
+        ar: {
+          lang: 'اللغة',
+          tag: 'عرض تجريبي · بيانات اختبار',
+          title: 'Blanche Beauty · <em>نسخة تجريبية</em>',
+          lead: 'هذه معاينة لتطبيق خاص بـ Blanche Beauty ولوحة إدارة للاستوديو. الأسماء والمواعيد والمدفوعات وهمية. تجوّلي بحرية، فلن تُفسدي شيئًا.',
+          helpTitle: 'شاهدي فيديو الشرح',
+          helpBody: 'كل شيء عن التطبيق ولوحة الإدارة',
+          appTitle: 'التطبيق للعميلات',
+          appBody: 'هكذا يبدو التطبيق على الهاتف. هنا تحجز العميلات الأظافر أو الرموش أو الحواجب لدى خبيرتهن، ويجمعن النقاط في Blanche Club، ويطلبن منتجات العناية.',
+          appTry: 'جرّبي: اضغطي على «افتحي استوديو الألوان» لتري لون الجل مباشرةً على يد حقيقية. أو اضغطي على «الحجز» واختاري خبيرة وموعدًا.',
+          appOpen: 'افتحي التطبيق',
+          adminTitle: 'لوحة الإدارة للاستوديو',
+          adminBody: 'هنا يرى الاستوديو ما يحدث اليوم: من على الكرسي الآن، وجدول كل خبيرة، ومن حان موعد تجديد أظافرها، والإيرادات، والمتجر الإلكتروني.',
+          adminTry: 'جرّبي: اضغطي على «تشغيل اليوم» لتري يومًا كاملًا في الاستوديو خلال 45 ثانية.',
+          adminOpen: 'افتحي لوحة الإدارة',
+          realTitle: 'ما الحقيقي؟',
+          real: 'العلاجات والأسعار والعناوين وساعات العمل في Nijmegen مأخوذة من Blanche Beauty، وكذلك صور أعمالهن.',
+          fakeTitle: 'ما الوهمي؟',
+          fake: 'الخبيرات والعميلات والمواعيد، وBlanche Club، والعروض، ومنتجات المتجر، والإيرادات والمدفوعات، ويوم رفع الرموش في Uden. لا يُحجز أو يُدفع أي شيء فعليًا.',
+          footer: 'نسخة تجريبية · ليست للحجوزات الحقيقية',
+        },
+        fr: {
+          lang: 'Langue',
+          tag: 'Démo · données de test',
+          title: 'Blanche Beauty · <em>démo</em>',
+          lead: 'Voici un aperçu d’une app rien qu’à Blanche Beauty et d’un écran de gestion pour le studio. Les noms, les rendez-vous et les paiements sont fictifs. Explore librement, tu ne peux rien casser.',
+          helpTitle: 'Regarder la vidéo explicative',
+          helpBody: 'Tout sur l’app et l’écran de gestion',
+          appTitle: 'L’app pour les clientes',
+          appBody: 'Voici l’app sur un téléphone. Les clientes y réservent leurs ongles, leurs cils ou leurs sourcils avec leur styliste, cumulent des points dans le Blanche Club et commandent leurs soins.',
+          appTry: 'Essaie : touche Ouvrir le studio couleurs et vois tout de suite une couleur de gel sur une vraie main. Ou touche Réserver et choisis une styliste et un horaire.',
+          appOpen: 'Ouvrir l’app',
+          adminTitle: 'L’écran de gestion du studio',
+          adminBody: 'Ici, le studio voit ce qui se passe aujourd’hui : qui est installée, l’agenda de chaque styliste, qui doit refaire sa pose, le chiffre d’affaires et la boutique en ligne.',
+          adminTry: 'Essaie : appuie sur Lancer la journée. Tu verras une journée entière au studio en 45 secondes.',
+          adminOpen: 'Ouvrir l’écran de gestion',
+          realTitle: 'Qu’est-ce qui est réel ?',
+          real: 'Les soins, les prix, les adresses et les horaires de Nijmegen viennent de Blanche Beauty, tout comme les photos de leur propre travail.',
+          fakeTitle: 'Qu’est-ce qui est fictif ?',
+          fake: 'Les stylistes, les clientes et les rendez-vous, le Blanche Club, les offres, les produits de la boutique, le chiffre d’affaires et les paiements, ainsi que la journée rehaussement de cils à Uden. Rien n’est vraiment réservé ni payé.',
+          footer: 'Démo · pas pour de vraies réservations',
+        },
+        de: {
+          lang: 'Sprache',
+          tag: 'Demo · Testdaten',
+          title: 'Blanche Beauty · <em>Demo</em>',
+          lead: 'Das ist eine Vorschau auf eine eigene App für Blanche Beauty und eine Verwaltung für das Studio. Namen, Termine und Zahlungen sind erfunden. Klick dich ruhig durch, du kannst nichts kaputt machen.',
+          helpTitle: 'Erklärvideo ansehen',
+          helpBody: 'Alles über die App und die Verwaltung',
+          appTitle: 'Die App für Kundinnen',
+          appBody: 'So sieht die App auf dem Handy aus. Hier buchen Kundinnen Nägel, Wimpern oder Brauen bei ihrer Stylistin, sammeln Punkte im Blanche Club und bestellen ihre Pflegeprodukte.',
+          appTry: 'Probier es aus: Tippe auf Farbstudio öffnen und sieh eine Gelfarbe sofort auf einer echten Hand. Oder tippe auf Buchen und wähle eine Stylistin und eine Uhrzeit.',
+          appOpen: 'App öffnen',
+          adminTitle: 'Die Verwaltung für das Studio',
+          adminBody: 'Hier sieht das Studio, was heute passiert: wer gerade im Stuhl sitzt, den Kalender jeder Stylistin, wer ein neues Set braucht, den Umsatz und den Webshop.',
+          adminTry: 'Probier es aus: Drück auf Tag abspielen. Dann siehst du einen ganzen Tag im Studio in 45 Sekunden.',
+          adminOpen: 'Verwaltung öffnen',
+          realTitle: 'Was ist echt?',
+          real: 'Die Behandlungen, Preise, Adressen und Öffnungszeiten in Nijmegen stammen von Blanche Beauty, ebenso die Fotos ihrer eigenen Arbeit.',
+          fakeTitle: 'Was ist erfunden?',
+          fake: 'Die Stylistinnen, Kundinnen und Termine, der Blanche Club, Deals, Shop-Produkte, Umsatz und Zahlungen sowie der Lash-Lift-Tag in Uden. Nichts wird wirklich gebucht oder bezahlt.',
+          footer: 'Demo · nicht für echte Buchungen',
+        },
+        it: {
+          lang: 'Lingua',
+          tag: 'Demo · dati di prova',
+          title: 'Blanche Beauty · <em>demo</em>',
+          lead: 'Questa è un’anteprima di un’app tutta per Blanche Beauty e di una schermata di gestione per lo studio. Nomi, appuntamenti e pagamenti sono finti. Esplora pure, non puoi rompere nulla.',
+          helpTitle: 'Guarda il video di presentazione',
+          helpBody: 'Tutto sull’app e sulla gestione',
+          appTitle: 'L’app per le clienti',
+          appBody: 'Ecco l’app su un telefono. Qui le clienti prenotano unghie, ciglia o sopracciglia con la loro stylist, raccolgono punti nel Blanche Club e ordinano i prodotti per la cura.',
+          appTry: 'Prova: tocca Apri lo studio colori e guarda subito un colore gel su una mano vera. Oppure tocca Prenota e scegli una stylist e un orario.',
+          appOpen: 'Apri l’app',
+          adminTitle: 'La schermata di gestione dello studio',
+          adminBody: 'Qui lo studio vede cosa succede oggi: chi è in poltrona, l’agenda di ogni stylist, chi deve rifare il set, l’incasso e lo shop online.',
+          adminTry: 'Prova: premi Riproduci la giornata. Vedrai un’intera giornata in studio in 45 secondi.',
+          adminOpen: 'Apri la schermata di gestione',
+          realTitle: 'Cosa è vero?',
+          real: 'I trattamenti, i prezzi, gli indirizzi e gli orari di Nijmegen vengono da Blanche Beauty, come le foto del loro lavoro.',
+          fakeTitle: 'Cosa è finto?',
+          fake: 'Le stylist, le clienti e gli appuntamenti, il Blanche Club, le offerte, i prodotti dello shop, l’incasso e i pagamenti, e la giornata di laminazione ciglia a Uden. Niente viene davvero prenotato o pagato.',
+          footer: 'Demo · non per prenotazioni reali',
+        },
+      };
+
+      const select = document.getElementById('lang');
+
+      function stored() {
+        try {
+          return localStorage.getItem('blanche-demo-lang');
+        } catch {
+          return null;
+        }
+      }
+
+      // The admin preview shows an afternoon in the studio: today, or the next day it is open (closed on Mondays and
+      // Fridays), at 14:20.
+      function busyAfternoon() {
+        const day = new Date();
+        while (day.getDay() === 1 || day.getDay() === 5) day.setDate(day.getDate() + 1);
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${day.getFullYear()}-${pad(day.getMonth() + 1)}-${pad(day.getDate())}T14:20`;
+      }
+
+      function apply(lang) {
+        const t = TEXT[lang] || TEXT.nl;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.querySelectorAll('[data-t]').forEach((el) => {
+          el.innerHTML = t[el.dataset.t];
+        });
+        select.value = lang;
+        select.setAttribute('aria-label', t.lang);
+        // Open the app and the admin screen in the same language.
+        const app = `app/?lang=${lang}`;
+        const admin = `admin/?lang=${lang}`;
+        const preview = `${admin}&at=${busyAfternoon()}`;
+        document.getElementById('open-app').href = app;
+        document.getElementById('open-admin').href = admin;
+        document.getElementById('admin-window').href = admin;
+        document.getElementById('open-help').href = `hulp/?lang=${lang}`;
+        const appFrame = document.getElementById('app-frame');
+        const adminFrame = document.getElementById('admin-frame');
+        if (appFrame.getAttribute('src') !== app) appFrame.src = app;
+        if (adminFrame.getAttribute('src') !== preview) adminFrame.src = preview;
+        try {
+          localStorage.setItem('blanche-demo-lang', lang);
+        } catch {
+          // Private windows may refuse storage; the page still works.
+        }
+      }
+
+      // Scale the admin preview to the width of its window.
+      const view = document.querySelector('.window .view');
+      const adminFrame = document.getElementById('admin-frame');
+      new ResizeObserver(() => {
+        adminFrame.style.transform = `scale(${view.clientWidth / 1440})`;
+      }).observe(view);
+
+      // The explainer video has a page of its own; the link appears once that page is published.
+      fetch('hulp/', { method: 'HEAD', cache: 'no-store' })
+        .then((response) => {
+          document.getElementById('open-help').hidden = !response.ok;
+        })
+        .catch(() => {});
+
+      select.addEventListener('change', () => apply(select.value));
+      const fromLink = new URLSearchParams(location.search).get('lang');
+      apply(TEXT[fromLink] ? fromLink : TEXT[stored()] ? stored() : 'nl');
+    </script>
+  </body>
+</html>

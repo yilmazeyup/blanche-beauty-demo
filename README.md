@@ -3,7 +3,9 @@
 A member app and an admin panel for **Blanche Beauty**, the nails, lashes and brows studio in Nijmegen (Korean lash
 lifts also in Uden). This is a demo with test data only: fictional stylists and clients, and no real payments.
 
-- Member app: https://yilmazeyup.github.io/blanche-beauty-demo/ (in Dutch, English, Arabic, French, German and Italian)
+- Live demo: https://yilmazeyup.github.io/blanche-beauty-demo/ (a start page with the app and the admin panel side by
+  side, in Dutch, English, Arabic, French, German and Italian)
+- Member app: https://yilmazeyup.github.io/blanche-beauty-demo/app/
 - Admin panel: https://yilmazeyup.github.io/blanche-beauty-demo/admin/ (`?at=2026-10-28T14:20` sets the demo clock)
 
 ## What's in it
@@ -32,6 +34,7 @@ passes, shop products and the lash-lift day in Uden are demo values.
 apps/app/          the member app (Expo SDK 58, Expo Router), also exported for the web
 apps/admin/        the admin panel (Vite, React, Three.js)
 packages/shared/   languages (nl, en, ar, fr, de, it), formatting, and the studio's data and texts
+site/              the demo site's start page (and its help page, in site/hulp/)
 scripts/           builds and serves the demo site the way GitHub Pages publishes it
 ```
 
@@ -57,9 +60,10 @@ It opens on http://localhost:5182. `npm run typecheck` checks both.
 
 ## The demo site
 
-`npm run site` builds what GitHub Pages publishes into `_site/`: the app at `/`, the admin panel at `/admin/`, and a
-copy of the app as `404.html`, so a link straight to a screen opens the app on that screen. Anything in `site/` (such
-as a help page in `site/hulp/`) is copied over as is. `npm run site:serve` then serves it on
+`npm run site` builds what GitHub Pages publishes into `_site/`: the start page from `site/index.html` at `/`, the app
+at `/app/`, the admin panel at `/admin/`, and a copy of the app as `404.html`, so a link straight to a screen opens the
+app on that screen. Everything else in `site/` is copied over as is, such as a help page in `site/hulp/`; the start
+page links to it as soon as it is published. `npm run site:serve` then serves the result on
 http://localhost:8099/blanche-beauty-demo/, the way GitHub Pages does.
 
 Every push to `main` builds the site and publishes it (`.github/workflows/pages.yml`).

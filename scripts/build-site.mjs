@@ -1,8 +1,10 @@
 // Builds the demo site into _site/, the way GitHub Pages publishes it:
-//   /          the member app, exported for the web
-//   /404.html  the same app: GitHub Pages answers unknown addresses with it, so a link to a screen opens that screen
+//   /          the start page (site/index.html): the demo explained, with the app and the admin panel side by side
+//   /app/      the member app, exported for the web
 //   /admin/    the studio's admin panel
-// Anything in site/ (such as a help page in site/hulp/) is copied over as is.
+//   /hulp/     the help page with the explainer video, once it is in site/hulp/
+//   /404.html  the app again: GitHub Pages answers unknown addresses with it, so a link to a screen opens that screen
+// Everything in site/ is copied over as is.
 // Usage: node scripts/build-site.mjs [base path], by default /blanche-beauty-demo
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -13,12 +15,17 @@ const base = (process.argv[2] ?? '/blanche-beauty-demo').replace(/\/$/, '');
 const run = (command, cwd, env = {}) => execSync(command, { cwd, stdio: 'inherit', env: { ...process.env, ...env } });
 
 fs.rmSync('_site', { recursive: true, force: true });
-run('npx expo export --platform web --output-dir ../../_site', 'apps/app', { EXPO_BASE_URL: base });
+run('npx expo export --platform web --output-dir ../../_site/app', 'apps/app', { EXPO_BASE_URL: `${base}/app` });
 run(`npx vite build --base=${base}/admin/ --outDir ../../_site/admin --emptyOutDir`, 'apps/admin');
-if (fs.existsSync('site')) fs.cpSync('site', '_site', { recursive: true });
+fs.cpSync('site', '_site', { recursive: true });
+// The start page shows three photos of Blanche's own work.
+fs.mkdirSync('_site/photos', { recursive: true });
+for (const photo of ['nails-red', 'lashes-lift', 'brows-map']) {
+  fs.copyFileSync(`apps/app/assets/photos/${photo}.jpg`, `_site/photos/${photo}.jpg`);
+}
 
-// The demo uses fictional data, so it stays out of search results; white from the very first moment.
-const page = '_site/index.html';
+// The demo uses fictional data, so the app stays out of search results; white from the very first moment.
+const page = '_site/app/index.html';
 const html = fs
   .readFileSync(page, 'utf8')
   .replace('<head>', '<head><meta name="robots" content="noindex, nofollow" />')

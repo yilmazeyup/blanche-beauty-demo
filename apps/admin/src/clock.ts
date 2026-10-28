@@ -9,7 +9,7 @@ const STEP_MS = 150_000;
 const TICK_MS = 125;
 
 /**
- * A link such as …/beheer/?at=2026-10-28T14:20 (seconds optional) starts the clock at that moment, in local time, and lets it run on from
+ * A link such as …/admin/?at=2026-10-28T14:20 (seconds optional) starts the clock at that moment, in local time, and lets it run on from
  * there; handy to show a busy afternoon in the evening. Without it the panel follows the real clock.
  */
 function startOffset(): number {

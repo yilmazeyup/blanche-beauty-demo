@@ -14,7 +14,7 @@ import { orderTotal, ordersUntil, shopDay } from './data/shop';
 import { Accent, I18nProvider, useI18n, useSetLocale } from './i18n';
 
 /** Where the member app lives on the demo site, next to this panel. */
-const APP_URL = '../';
+const APP_URL = '../app/';
 
 let actionId = 0;
 
